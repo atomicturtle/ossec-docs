@@ -33,13 +33,11 @@ extensions = [
     'sphinx.ext.autodoc', 
     'sphinx.ext.intersphinx', 
     'sphinx.ext.todo',
-    'sphinx.ext.pngmath', 
     'sphinx.ext.ifconfig', 
     'sphinx.ext.viewcode',
     "sphinx.ext.graphviz", 
     "sphinx.ext.extlinks",
-    "ablog",
-    "_ext.xml_domain",
+    "ablog"
 ]
 
 import ablog
