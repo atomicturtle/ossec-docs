@@ -6,7 +6,8 @@
 
        - Hostname or IP address of the syslog server.
 
-       - Hostnames are resolved once at startup (before chroot).
+       - Hostnames are resolved when the UDP socket is opened at startup
+         (before chroot), so dual-stack DNS results and IPv4 fallback still apply.
 
        - **Allowed:** any valid hostname or IP address
 
