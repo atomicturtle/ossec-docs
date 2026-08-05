@@ -80,4 +80,18 @@ rule, location and the actual event that generated it):
     srcip: 192.168.2.190; user: root; Jul 25 13:26:24 slacker sshd[20440]: Accepted password for root from 192.168.2.190 port 49737 ssh2
 
 
+Message size limits
+-------------------
+
+``ossec-csyslogd`` builds each forwarded alert (default, CEF, JSON, or Splunk format)
+into a fixed buffer of ``OS_MAXSTR`` bytes (6144). Longer alert bodies are truncated
+with a trailing ``...``. Earlier releases used a 2048-byte buffer, which commonly
+cut off CEF ``msg=`` fields around 2–3 KB (#1762).
+
+Syslog is still sent over **UDP** by default. Very large datagrams may be fragmented
+or dropped by the network path or receiver even when OSSEC emits the full buffer.
+For oversized payloads, prefer a collector that accepts larger UDP, switch the
+receiver to TCP if available outside OSSEC, or ship JSON alerts by another path.
+
+
 .. include:: ../../examples/output/syslog_output_examples.trst
