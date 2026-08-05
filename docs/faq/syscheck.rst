@@ -100,11 +100,21 @@ Why aren't new files creating an alert?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 By default OSSEC does not alert on new files.
-To enable this functionality, <alert_new_files> must be set to yes inside the <syscheck> section of the manager's ossec.conf.
-Also, the rule to alert on new files (rule 554) is set to level 0 by default. 
+To enable this functionality, ``<alert_new_files>`` must be set to ``yes`` inside the
+``<syscheck>`` section of the manager's ``ossec.conf``.
+Also, the rule to alert on new files (rule 554) is set to level 0 by default.
 The alert level will need to be raised in order to see the alert.
-Alerting on new files does not work in realtime, a full scan will be necessary to detect them.
-See :ref:`syscheck-realtime-limits`.
+
+The first syscheck baseline for an agent (and a rebuild after
+``syscheck_control -u`` with analysisd restarted) populates the integrity database
+**without** emitting “File added to the system” alerts. Only files seen **after**
+the agent reports that the database is complete (``syscheck-db-completed``) generate
+rule 554. That avoids flooding alerts for every existing file on a new install.
+
+With ``realtime="yes"`` on a monitored directory, new files under that path can
+alert after the baseline is marked complete. Keep ``scan_on_start`` enabled so the
+completion marker is set after the initial pre-scan rather than waiting for the next
+scheduled frequency run. See :ref:`syscheck-realtime-limits`.
 
 Why don't permission changes alert immediately with realtime enabled?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

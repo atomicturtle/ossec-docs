@@ -157,7 +157,9 @@ The following are **not** detected immediately when only realtime monitoring is 
   picked up on the next **scheduled scan**, not instantly.
 * **Ownership or group changes** (``check_owner``, ``check_group``) — same as permissions;
   wait for the next scheduled scan.
-* **New files** — requires the ``alert_new_files`` option and a full scan; see
+* **New files** — requires ``alert_new_files`` on the manager and a completed
+  baseline; with ``realtime="yes"``, new files under that directory can alert
+  after the baseline is marked complete (``scan_on_start`` recommended). See
   :doc:`Why aren't new files creating an alert? </docs/faq/syscheck>`.
 
 Additionally:
