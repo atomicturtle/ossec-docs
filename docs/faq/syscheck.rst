@@ -122,10 +122,6 @@ Why does auto_ignore not suppress noisy realtime alerts?
 from the realtime monitoring path are not subject to ``auto_ignore``. Use ``<ignore>`` or a
 local rule for files that change frequently in realtime directories.
 
-<<<<<<< Updated upstream
-Add the following to local_rules.xml only if you want a higher alert level than the
-default (5):
-=======
 Can OSSEC monitor Windows Hidden files?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -150,8 +146,8 @@ The first scan after enabling ``check_attrs`` may re-baseline those paths
 How do I get alerts for new files?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Add the following to local_rules.xml:
->>>>>>> Stashed changes
+Add the following to local_rules.xml only if you want a higher alert level than the
+default (5):
 
 .. code-block:: xml
 
