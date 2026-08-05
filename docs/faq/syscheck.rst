@@ -122,8 +122,36 @@ Why does auto_ignore not suppress noisy realtime alerts?
 from the realtime monitoring path are not subject to ``auto_ignore``. Use ``<ignore>`` or a
 local rule for files that change frequently in realtime directories.
 
+<<<<<<< Updated upstream
 Add the following to local_rules.xml only if you want a higher alert level than the
 default (5):
+=======
+Can OSSEC monitor Windows Hidden files?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Yes. Syscheck already enumerates and checksums files with the Windows Hidden
+attribute; content changes are reported like any other file.
+
+To **alert when the Hidden (or other) attribute itself changes**, enable
+``check_attrs`` on the monitored directory (Windows agents only). This is not
+part of ``check_all``:
+
+.. code-block:: xml
+
+  <syscheck>
+    <directories check_all="yes" check_attrs="yes" realtime="yes">C:\\path\\to\\watch</directories>
+  </syscheck>
+
+The first scan after enabling ``check_attrs`` may re-baseline those paths
+(attribute field added to the sum). Use FIM maintenance mode or
+``syscheck_control -u`` if you need a quiet transition.
+
+
+How do I get alerts for new files?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Add the following to local_rules.xml:
+>>>>>>> Stashed changes
 
 .. code-block:: xml
 

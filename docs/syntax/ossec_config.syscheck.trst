@@ -17,7 +17,9 @@
 
            Realtime mode alerts immediately on **file content integrity** changes (checksums
            and size) for files already in the syscheck database. Permission, ownership, and
-           group changes are detected on the **next scheduled scan**, not instantly. See
+           group changes are detected on the **next scheduled scan**, not instantly. On
+           Windows, when ``check_attrs="yes"`` is set, attribute changes (for example Hidden)
+           are also eligible for realtime notification. See
            :ref:`syscheck-realtime-limits`.
 
     - **report_changes**: Value=yes
@@ -66,6 +68,17 @@
 
         - Check the UNIX permission of the files/directories selected.
           On windows this will only check the POSIX permissions.
+
+    - **check_attrs**: Value=yes
+
+        .. versionadded:: 4.3.0
+
+        - On Windows, include ``GetFileAttributes`` bits (Hidden, System,
+          Archive, and related) in the FIM integrity sum so attribute flips
+          alert. Ignored on non-Windows agents. Not enabled by ``check_all``;
+          set explicitly to avoid a one-time baseline churn on upgrade.
+
+        **Allowed:** yes/no
 
     - **restrict**: Value=string
 
